@@ -2,4 +2,6 @@
     <string name="app_name">ActivLog</string>
     <string name="button_logActiv">Log Activity</string>
     <string name="duration_hint">Duration</string>
+    <string name="menu_addActiv">Add</string>
+    <string name="menu_cancelActiv">Cancel</string>
 </resources>
