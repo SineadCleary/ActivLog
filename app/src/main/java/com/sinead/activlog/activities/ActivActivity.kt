@@ -18,6 +18,7 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityActivBinding
     var activ = ActivModel()
     lateinit var app : MainApp
+    var edit = false
 
     private var types = arrayOf(
         "Run", "Walk", "Cycle", "Swim", "Workout", "Train"
@@ -45,23 +46,29 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         )
         binding.activTypeSpinner.adapter = arrayAdapter
 
+        // Edit mode
+        if (intent.hasExtra("activ_edit")) {
+            edit = true
+            activ = intent.extras?.getParcelable("activ_edit")!!
+            binding.activTypeSpinner.setSelection(types.indexOf(activ.type))
+            binding.durationEditText.setText(activ.duration)
+            binding.btnAdd.setText(R.string.save_activ)
+        }
+
         // Button
         binding.btnAdd.setOnClickListener {
             // spinner is set onItemSelectedListener
             activ.duration = binding.durationEditText.text.toString()
-            if (activ.duration.isNotEmpty()) {
-                app.activs.add(activ.copy())
-                i("add Button Pressed, duration: ${activ.duration}, type: ${activ.type}")
-                for (i in app.activs.indices) {
-                    i("Activ[$i]:${this.app.activs[i]}")
+            if (activ.duration.isEmpty()) {
+                Snackbar.make(it,R.string.enter_duration, Snackbar.LENGTH_LONG).show()
+            } else {
+                if (edit) {
+                    app.activs.update(activ.copy())
+                } else {
+                    app.activs.create(activ.copy())
                 }
                 setResult(RESULT_OK)
                 finish()
-            }
-            else {
-                Snackbar
-                    .make(it,"Enter a duration", Snackbar.LENGTH_LONG)
-                    .show()
             }
         }
     }

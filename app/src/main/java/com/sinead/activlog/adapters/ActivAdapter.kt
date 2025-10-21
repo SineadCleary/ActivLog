@@ -6,7 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sinead.activlog.databinding.CardActivBinding
 import com.sinead.activlog.models.ActivModel
 
-class ActivAdapter constructor(private var activs: List<ActivModel>) :
+interface ActivListener {
+    fun onActivClick(activ: ActivModel)
+}
+
+class ActivAdapter(private var activs: List<ActivModel>,
+    private val listener: ActivListener) :
     RecyclerView.Adapter<ActivAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -18,7 +23,7 @@ class ActivAdapter constructor(private var activs: List<ActivModel>) :
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val activ = activs[holder.adapterPosition]
-        holder.bind(activ)
+        holder.bind(activ, listener)
     }
 
     override fun getItemCount(): Int = activs.size
@@ -26,9 +31,11 @@ class ActivAdapter constructor(private var activs: List<ActivModel>) :
     class MainHolder(private val binding : CardActivBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(activ: ActivModel) {
+        fun bind(activ: ActivModel, listener: ActivListener) {
             binding.activType.text = activ.type
             binding.duration.text = activ.duration
+
+            binding.root.setOnClickListener { listener.onActivClick(activ) }
         }
     }
 }

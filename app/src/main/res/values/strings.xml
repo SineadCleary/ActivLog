@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">ActivLog</string>
     <string name="button_logActiv">Log Activity</string>
+    <string name="button_logTime">Time</string>
     <string name="duration_hint">Duration</string>
     <string name="menu_addActiv">Add</string>
     <string name="menu_cancelActiv">Cancel</string>
     <string name="menu_theme">Theme</string>
+    <string name="enter_duration">Enter a duration</string>
+    <string name="save_activ">Save</string>
 </resources>

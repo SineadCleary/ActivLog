@@ -1,3 +1,9 @@
 package com.sinead.activlog.models
 
-data class ActivModel(var duration: String = "", var type: String = "")
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class ActivModel(var id: Long = 0,
+                      var duration: String = "",
+                      var type: String = "") : Parcelable

@@ -1,0 +1,7 @@
+package com.sinead.activlog.models
+
+interface ActivStore {
+    fun findAll(): List<ActivModel>
+    fun create(activ: ActivModel)
+    fun update(activ: ActivModel)
+}
