@@ -2,11 +2,14 @@ package com.sinead.activlog.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sinead.activlog.R
 import com.sinead.activlog.adapters.ActivAdapter
@@ -38,9 +41,23 @@ class ActivListActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // Add
             R.id.item_add -> {
                 val launcherIntent = Intent(this, ActivActivity::class.java)
                 getResult.launch(launcherIntent)
+            }
+            // Theme
+            R.id.item_theme -> {
+                // bitwise "and" extracts only night mode bits (UI_MODE_NIGHT_MASK) from uiMode
+                val nightModeFlags = this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+                if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                    // dark mode - set to light
+                    setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                } else {
+                    // light mode - set to dark
+                    setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
             }
         }
         return super.onOptionsItemSelected(item)
