@@ -7,7 +7,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.sinead.activlog.R
+import com.sinead.activlog.adapters.ActivAdapter
 import com.sinead.activlog.databinding.ActivityActivBinding
 import com.sinead.activlog.main.MainApp
 import com.sinead.activlog.models.ActivModel
@@ -73,6 +75,9 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             binding.RPEPicker.value = activ.RPE
             binding.noteEditText.setText(activ.note)
             binding.btnAdd.setText(R.string.save_activ)
+            binding.btnDelete.isVisible = true
+        } else {
+            binding.btnDelete.isVisible = false
         }
 
         // Add activity button
@@ -86,6 +91,13 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             } else {
                 app.activs.create(activ.copy())
             }
+            setResult(RESULT_OK)
+            finish()
+        }
+
+        // Delete activity button
+        binding.btnDelete.setOnClickListener {
+            app.activs.delete(activ)
             setResult(RESULT_OK)
             finish()
         }

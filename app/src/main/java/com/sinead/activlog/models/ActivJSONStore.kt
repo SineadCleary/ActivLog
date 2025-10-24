@@ -52,6 +52,11 @@ class ActivJSONStore(private val context: Context) : ActivStore {
         serialize()
     }
 
+    override fun delete(activ: ActivModel) {
+        activs.remove(activ)
+        serialize()
+    }
+
     internal fun logAll() {
         activs.forEach { println("$it") }
     }

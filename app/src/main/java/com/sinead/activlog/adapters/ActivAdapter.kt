@@ -10,7 +10,7 @@ interface ActivListener {
     fun onActivClick(activ: ActivModel)
 }
 
-class ActivAdapter(private var activs: List<ActivModel>,
+class ActivAdapter(private var activs: MutableList<ActivModel>,
     private val listener: ActivListener) :
     RecyclerView.Adapter<ActivAdapter.MainHolder>() {
 

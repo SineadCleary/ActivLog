@@ -5,4 +5,5 @@ interface ActivStore {
     fun create(activ: ActivModel)
     fun findOne(id: Long) : ActivModel?
     fun update(activ: ActivModel)
+    fun delete(avtiv: ActivModel)
 }

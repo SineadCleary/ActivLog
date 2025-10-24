@@ -37,6 +37,10 @@ class ActivMemStore : ActivStore {
         }
     }
 
+    override fun delete(activ: ActivModel) {
+        activs.remove(activ)
+    }
+
     fun logAll() {
         activs.forEach { i("$it") }
     }

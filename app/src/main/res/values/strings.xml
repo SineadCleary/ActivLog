@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ActivLog</string>
     <string name="button_logActiv">Log Activity</string>
+    <string name="button_deleteActiv">Delete</string>
     <string name="label_time">Time (minutes):</string>
     <string name="label_type">Type:</string>
     <string name="label_RPE">RPE:</string>

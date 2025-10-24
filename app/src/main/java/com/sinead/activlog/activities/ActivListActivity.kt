@@ -11,7 +11,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.sinead.activlog.R
 import com.sinead.activlog.adapters.ActivAdapter
 import com.sinead.activlog.adapters.ActivListener
@@ -86,6 +85,13 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
         val launcherIntent = Intent(this, ActivActivity::class.java)
         launcherIntent.putExtra("activ_edit", activ)
         getClickResult.launch(launcherIntent)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            binding.recyclerView.adapter?.notifyDataSetChanged()  // refresh RecyclerView
+        }
     }
 
     private val getClickResult =
