@@ -15,6 +15,11 @@ class ActivMemStore : ActivStore {
         return activs
     }
 
+    override fun findOne(id: Long): ActivModel? {
+        var foundActiv: ActivModel? = activs.find { a -> a.id == id }
+        return foundActiv
+    }
+
     override fun create(activ: ActivModel) {
         activ.id = getId()
         activs.add(activ)
