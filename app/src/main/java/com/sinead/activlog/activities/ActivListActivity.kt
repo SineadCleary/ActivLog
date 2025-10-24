@@ -10,6 +10,7 @@ import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sinead.activlog.R
 import com.sinead.activlog.adapters.ActivAdapter
@@ -29,11 +30,17 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
 
         app = application as MainApp
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = GridLayoutManager(this, 2)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = ActivAdapter(app.activs.findAll(), this)
         binding.toolbar.title = title
         setSupportActionBar(binding.toolbar)
+
+        // Add button
+        binding.newItem.setOnClickListener {
+            val launcherIntent = Intent(this, ActivActivity::class.java)
+            getResult.launch(launcherIntent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -44,10 +51,10 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             // Add
-            R.id.item_add -> {
-                val launcherIntent = Intent(this, ActivActivity::class.java)
-                getResult.launch(launcherIntent)
-            }
+//            R.id.item_add -> {
+//                val launcherIntent = Intent(this, ActivActivity::class.java)
+//                getResult.launch(launcherIntent)
+//            }
             // Theme
             R.id.item_theme -> {
                 // bitwise "and" extracts only night mode bits (UI_MODE_NIGHT_MASK) from uiMode

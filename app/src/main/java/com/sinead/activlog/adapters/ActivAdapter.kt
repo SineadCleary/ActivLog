@@ -28,13 +28,14 @@ class ActivAdapter(private var activs: List<ActivModel>,
 
     override fun getItemCount(): Int = activs.size
 
+    // Cards
     class MainHolder(private val binding : CardActivBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(activ: ActivModel, listener: ActivListener) {
             binding.activType.text = activ.type
-            binding.time.text = activ.time.toString()
-            binding.RPE.text = activ.RPE.toString()
+            binding.time.text = "${activ.time.toString()} minutes"
+            binding.RPE.text = "RPE: ${activ.RPE.toString()}"
             binding.note.text = activ.note
 
             binding.root.setOnClickListener { listener.onActivClick(activ) }
