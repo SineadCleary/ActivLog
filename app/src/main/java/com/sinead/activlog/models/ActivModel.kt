@@ -5,5 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ActivModel(var id: Long = 0,
-                      var duration: String = "",
-                      var type: String = "") : Parcelable
+                      var type: String = "",
+                      var time: Int = 0,
+                      var RPE: Int = 5,
+                      var note: String = ""
+                      ) : Parcelable

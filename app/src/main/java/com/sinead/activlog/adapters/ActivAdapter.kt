@@ -33,7 +33,9 @@ class ActivAdapter(private var activs: List<ActivModel>,
 
         fun bind(activ: ActivModel, listener: ActivListener) {
             binding.activType.text = activ.type
-            binding.duration.text = activ.duration
+            binding.time.text = activ.time.toString()
+            binding.RPE.text = activ.RPE.toString()
+            binding.note.text = activ.note
 
             binding.root.setOnClickListener { listener.onActivClick(activ) }
         }

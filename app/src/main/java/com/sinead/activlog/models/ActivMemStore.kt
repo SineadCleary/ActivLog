@@ -25,7 +25,9 @@ class ActivMemStore : ActivStore {
         var foundActiv: ActivModel? = activs.find { a -> a.id == activ.id }
         if (foundActiv != null) {
             foundActiv.type = activ.type
-            foundActiv.duration = activ.duration
+            foundActiv.time = activ.time
+            foundActiv.RPE = activ.RPE
+            foundActiv.note = activ.note
             logAll()
         }
     }

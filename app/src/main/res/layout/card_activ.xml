@@ -21,11 +21,25 @@
             tools:text="A type" />
 
         <TextView
-            android:id="@+id/duration"
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/activType"
-            tools:text="A duration" />
+            tools:text="A time" />
+
+        <TextView
+            android:id="@+id/RPE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time"
+            tools:text="An RPE value" />
+
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RPE"
+            tools:text="A note" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

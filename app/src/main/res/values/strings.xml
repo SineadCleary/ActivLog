@@ -1,11 +1,28 @@
 <resources>
     <string name="app_name">ActivLog</string>
     <string name="button_logActiv">Log Activity</string>
-    <string name="button_logTime">Time</string>
-    <string name="duration_hint">Duration</string>
+    <string name="label_time">Time (minutes):</string>
+    <string name="label_type">Type:</string>
+    <string name="label_RPE">RPE:</string>
     <string name="menu_addActiv">Add</string>
     <string name="menu_cancelActiv">Cancel</string>
     <string name="menu_theme">Theme</string>
-    <string name="enter_duration">Enter a duration</string>
+    <string name="note_hint">Note</string>
     <string name="save_activ">Save</string>
+    <string-array name="types">
+        <item>Run</item>
+        <item>Walk</item>
+        <item>Cycle</item>
+        <item>Swim</item>
+        <item>Workout</item>
+        <item>Train</item>
+    </string-array>
+    <string-array name="times">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+    </string-array>
 </resources>
