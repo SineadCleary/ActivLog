@@ -33,6 +33,9 @@ class ActivMemStore : ActivStore {
             foundActiv.time = activ.time
             foundActiv.RPE = activ.RPE
             foundActiv.note = activ.note
+            foundActiv.lat = activ.lat
+            foundActiv.lng = activ.lng
+            foundActiv.zoom = activ.zoom
             logAll()
         }
     }

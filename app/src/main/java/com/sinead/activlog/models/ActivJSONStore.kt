@@ -48,6 +48,9 @@ class ActivJSONStore(private val context: Context) : ActivStore {
             foundActiv.time = activ.time
             foundActiv.RPE = activ.RPE
             foundActiv.note = activ.note
+            foundActiv.lat = activ.lat
+            foundActiv.lng = activ.lng
+            foundActiv.zoom = activ.zoom
         }
         serialize()
     }

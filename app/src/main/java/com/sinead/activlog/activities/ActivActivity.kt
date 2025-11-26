@@ -1,11 +1,14 @@
 package com.sinead.activlog.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.sinead.activlog.R
@@ -13,10 +16,13 @@ import com.sinead.activlog.adapters.ActivAdapter
 import com.sinead.activlog.databinding.ActivityActivBinding
 import com.sinead.activlog.main.MainApp
 import com.sinead.activlog.models.ActivModel
+import com.sinead.activlog.activities.MapActivity
+import com.sinead.activlog.models.Location
 import timber.log.Timber.i
 
 class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityActivBinding
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     var activ = ActivModel()
     lateinit var app : MainApp
     var edit = false
@@ -31,6 +37,7 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         app = application as MainApp
         i("Log activity started..")
+        registerMapCallback()
 
         // Type Spinner
         // code based on https://developer.android.com/develop/ui/views/components/spinner#SelectListener
@@ -63,6 +70,19 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         binding.RPEPicker.setMinValue(1)
         binding.RPEPicker.setMaxValue(10)
         binding.RPEPicker.value = 5
+
+        // Map button
+        binding.activLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (activ.zoom != 0f) {
+                location.lat =  activ.lat
+                location.lng = activ.lng
+                location.zoom = activ.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
 
         // Edit mode
         if (intent.hasExtra("activ_edit")) {
@@ -119,6 +139,26 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            activ.lat = location.lat
+                            activ.lng = location.lng
+                            activ.zoom = location.zoom
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
     }
 
 }
