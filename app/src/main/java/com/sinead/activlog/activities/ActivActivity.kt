@@ -74,13 +74,18 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         // Map button
         binding.activLocation.setOnClickListener {
             val location = Location(52.245696, -7.139102, 15f)
+            val endLocation = Location(52.245696, -7.139102, 15f)
             if (activ.zoom != 0f) {
                 location.lat =  activ.lat
                 location.lng = activ.lng
                 location.zoom = activ.zoom
+                endLocation.lat =  activ.endLat
+                endLocation.lng = activ.endLng
+                endLocation.zoom = activ.endZoom
             }
             val launcherIntent = Intent(this, MapActivity::class.java)
                 .putExtra("location", location)
+                .putExtra("endLocation", endLocation)
             mapIntentLauncher.launch(launcherIntent)
         }
 
@@ -150,10 +155,14 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
                             val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            val endLocation = result.data!!.extras?.getParcelable<Location>("endLocation")!!
                             i("Location == $location")
                             activ.lat = location.lat
                             activ.lng = location.lng
                             activ.zoom = location.zoom
+                            activ.endLat = endLocation.lat
+                            activ.endLng = endLocation.lng
+                            activ.endZoom = endLocation.zoom
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

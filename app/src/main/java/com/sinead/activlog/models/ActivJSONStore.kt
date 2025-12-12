@@ -51,6 +51,9 @@ class ActivJSONStore(private val context: Context) : ActivStore {
             foundActiv.lat = activ.lat
             foundActiv.lng = activ.lng
             foundActiv.zoom = activ.zoom
+            foundActiv.endLat = activ.endLat
+            foundActiv.endLng = activ.endLng
+            foundActiv.endZoom = activ.endZoom
         }
         serialize()
     }
