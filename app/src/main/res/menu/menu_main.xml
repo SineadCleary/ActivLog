@@ -7,9 +7,10 @@
         android:icon="@android:drawable/ic_menu_view"
         android:title="@string/menu_theme"
         app:showAsAction="always" />
-<!--    <item-->
-<!--        android:id="@+id/item_add"-->
-<!--        android:icon="@android:drawable/ic_menu_add"-->
-<!--        android:title="@string/menu_addActiv"-->
-<!--        app:showAsAction="always" />-->
+
+    <item
+        android:id="@+id/item_map"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/menu_theme"
+        app:showAsAction="always"/>
 </menu>

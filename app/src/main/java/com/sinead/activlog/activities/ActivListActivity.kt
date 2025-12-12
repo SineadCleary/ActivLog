@@ -49,11 +49,6 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            // Add
-//            R.id.item_add -> {
-//                val launcherIntent = Intent(this, ActivActivity::class.java)
-//                getResult.launch(launcherIntent)
-//            }
             // Theme
             R.id.item_theme -> {
                 // bitwise "and" extracts only night mode bits (UI_MODE_NIGHT_MASK) from uiMode
@@ -66,6 +61,11 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
                     // light mode - set to dark
                     setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }
+            }
+            // Map
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, ActivMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -103,6 +103,12 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
                         notifyItemRangeChanged(0, app.activs.findAll().size)
             }
         }
+
+    private val mapIntentLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        )    { }
+
 }
 
 

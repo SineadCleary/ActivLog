@@ -76,4 +76,9 @@ class ActivJSONStore(private val context: Context) : ActivStore {
         val jsonString = read(context, JSON_FILE)
         activs = Gson().fromJson(jsonString, listType)
     }
+
+    override fun findById(id:Long) : ActivModel? {
+        val foundPlacemark: ActivModel? = activs.find { it.id == id }
+        return foundPlacemark
+    }
 }

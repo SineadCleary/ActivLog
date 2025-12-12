@@ -51,4 +51,9 @@ class ActivMemStore : ActivStore {
         activs.forEach { i("$it") }
     }
 
+    override fun findById(id:Long) : ActivModel? {
+        val foundPlacemark: ActivModel? = activs.find { it.id == id }
+        return foundPlacemark
+    }
+
 }
