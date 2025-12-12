@@ -10,6 +10,8 @@ import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.sinead.activlog.R
 import com.sinead.activlog.adapters.ActivAdapter
@@ -17,15 +19,29 @@ import com.sinead.activlog.adapters.ActivListener
 import com.sinead.activlog.databinding.ActivityActivListBinding
 import com.sinead.activlog.main.MainApp
 import com.sinead.activlog.models.ActivModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 class ActivListActivity : AppCompatActivity(), ActivListener {
     lateinit var app: MainApp
     private lateinit var binding: ActivityActivListBinding
+    private var keepSplash = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Splash screen code from: https://www.geeksforgeeks.org/android/splash-screen-in-android/
+        // Install splash screen and keep it visible while `keepSplash` is true
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { keepSplash }
+
         super.onCreate(savedInstanceState)
         binding = ActivityActivListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Start coroutine to delay splash screen removal
+        lifecycleScope.launch {
+            delay(4000) // Wait 4 seconds
+            keepSplash = false // Allow splash screen to be dismissed
+        }
 
         app = application as MainApp
 
