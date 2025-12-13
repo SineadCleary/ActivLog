@@ -37,10 +37,17 @@
             tools:text="An RPE value" />
 
         <TextView
-            android:id="@+id/note"
+            android:id="@+id/distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/RPE"
+            tools:text="A distance" />
+
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/distance"
             tools:text="A note"
             android:textStyle="italic"/>
 

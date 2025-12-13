@@ -85,6 +85,12 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
                 mapIntentLauncher.launch(launcherIntent)
                 overridePendingTransition(R.anim.slide_from_top,R.anim.slide_to_bottom);
             }
+            // Stats
+            R.id.item_stats -> {
+                val launcherIntent = Intent(this, StatsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
+                overridePendingTransition(R.anim.slide_from_top,R.anim.slide_to_bottom);
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -16,14 +16,14 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.sinead.activlog.R
 import com.sinead.activlog.databinding.ActivityMapBinding
-import com.sinead.activlog.models.Location
+import com.sinead.activlog.models.MyLocation
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapBinding
     // Locations
-    private var location = Location()
-    private var endLocation = Location()
+    private var location = MyLocation()
+    private var endLocation = MyLocation()
     // Markers
     private lateinit var startMarker: Marker
     private lateinit var endMarker: Marker
@@ -33,8 +33,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerD
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //location = intent.extras?.getParcelable("location",Location::class.java)!!
-        location = intent.extras?.getParcelable<Location>("location")!!
-        endLocation = intent.extras?.getParcelable<Location>("endLocation")!!
+        location = intent.extras?.getParcelable<MyLocation>("location")!!
+        endLocation = intent.extras?.getParcelable<MyLocation>("endLocation")!!
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)

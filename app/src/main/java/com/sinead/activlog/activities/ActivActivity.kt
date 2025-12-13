@@ -13,12 +13,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.sinead.activlog.R
-import com.sinead.activlog.adapters.ActivAdapter
 import com.sinead.activlog.databinding.ActivityActivBinding
 import com.sinead.activlog.main.MainApp
 import com.sinead.activlog.models.ActivModel
-import com.sinead.activlog.activities.MapActivity
-import com.sinead.activlog.models.Location
+import android.location.Location
+import com.sinead.activlog.models.MyLocation
 import timber.log.Timber.i
 
 class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -89,8 +88,8 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         // Map button
         binding.activLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
-            val endLocation = Location(52.245696, -7.139102, 15f)
+            val location = MyLocation(52.245696, -7.139102, 15f)
+            val endLocation = MyLocation(52.245696, -7.139102, 15f)
             if (activ.zoom != 0f) {
                 location.lat =  activ.lat
                 location.lng = activ.lng
@@ -171,8 +170,8 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
-                            val endLocation = result.data!!.extras?.getParcelable<Location>("endLocation")!!
+                            val location = result.data!!.extras?.getParcelable<MyLocation>("location")!!
+                            val endLocation = result.data!!.extras?.getParcelable<MyLocation>("endLocation")!!
                             i("Location == $location")
                             activ.lat = location.lat
                             activ.lng = location.lng
@@ -180,11 +179,31 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                             activ.endLat = endLocation.lat
                             activ.endLng = endLocation.lng
                             activ.endZoom = endLocation.zoom
+                            activ.distance = distanceInKilometers(location.lat, location.lng, endLocation.lat, endLocation.lng)
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }
             }
+    }
+
+    fun distanceInKilometers(
+        startLat: Double,
+        startLng: Double,
+        lat: Double,
+        lng: Double
+    ): Float {
+        val startLocation = Location("start").apply {
+            latitude = startLat
+            longitude = startLng
+        }
+
+        val endLocation = Location("end").apply {
+            latitude = lat
+            longitude = lng
+        }
+
+        return startLocation.distanceTo(endLocation) / 1000
     }
 
 }

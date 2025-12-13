@@ -37,6 +37,11 @@ class ActivAdapter(private var activs: MutableList<ActivModel>,
             binding.time.text = "${activ.time.toString()} minutes"
             binding.RPE.text = "RPE: ${activ.RPE.toString()}"
             binding.note.text = activ.note
+            if (activ.distance == 0f) {
+                binding.distance.text = ""
+            }
+            else
+                binding.distance.text = String.format("%.1f", activ.distance) + "km"
 
             binding.root.setOnClickListener { listener.onActivClick(activ) }
         }
