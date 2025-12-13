@@ -1,6 +1,8 @@
 package com.sinead.activlog.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -8,6 +10,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.sinead.activlog.R
 import com.sinead.activlog.databinding.ActivityActivMapsBinding
 import com.sinead.activlog.databinding.ContentActivMapsBinding
 import com.sinead.activlog.main.MainApp
@@ -25,6 +28,8 @@ class ActivMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
         binding = ActivityActivMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        binding.toolbarAdd.title = title
         setSupportActionBar(binding.toolbar)
 
         contentBinding = ContentActivMapsBinding.bind(binding.root)
@@ -59,6 +64,21 @@ class ActivMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         contentBinding.mapView.onSaveInstanceState(outState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_activ, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> {
+                finish()
+                overridePendingTransition(R.anim.slide_from_bottom,R.anim.slide_to_top);
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun configureMap() {

@@ -103,6 +103,7 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                 .putExtra("location", location)
                 .putExtra("endLocation", endLocation)
             mapIntentLauncher.launch(launcherIntent)
+            overridePendingTransition(R.anim.slide_from_top,R.anim.slide_to_bottom);
         }
 
         // Edit mode
@@ -134,6 +135,7 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             }
             setResult(RESULT_OK)
             finish()
+            overridePendingTransition(R.anim.slide_from_left,R.anim.slide_to_right);
         }
 
         // Delete activity button
@@ -155,6 +157,7 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         when (item.itemId) {
             R.id.item_cancel -> {
                 finish()
+                overridePendingTransition(R.anim.slide_from_left,R.anim.slide_to_right);
             }
         }
         return super.onOptionsItemSelected(item)

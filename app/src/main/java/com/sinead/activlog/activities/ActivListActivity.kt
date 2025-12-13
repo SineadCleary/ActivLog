@@ -55,6 +55,7 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
         binding.newItem.setOnClickListener {
             val launcherIntent = Intent(this, ActivActivity::class.java)
             getResult.launch(launcherIntent)
+            overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
         }
     }
 
@@ -82,6 +83,7 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
             R.id.item_map -> {
                 val launcherIntent = Intent(this, ActivMapsActivity::class.java)
                 mapIntentLauncher.launch(launcherIntent)
+                overridePendingTransition(R.anim.slide_from_top,R.anim.slide_to_bottom);
             }
         }
         return super.onOptionsItemSelected(item)
@@ -101,6 +103,7 @@ class ActivListActivity : AppCompatActivity(), ActivListener {
         val launcherIntent = Intent(this, ActivActivity::class.java)
         launcherIntent.putExtra("activ_edit", activ)
         getClickResult.launch(launcherIntent)
+        overridePendingTransition(R.anim.slide_from_right,R.anim.slide_to_left);
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

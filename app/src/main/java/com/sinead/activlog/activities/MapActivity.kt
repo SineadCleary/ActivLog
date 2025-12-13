@@ -39,12 +39,24 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerD
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        // Confirm location with button
+        binding.btnConfirm.setOnClickListener {
+            val resultIntent = Intent()
+            resultIntent.putExtra("location", location)
+            resultIntent.putExtra("endLocation", endLocation)
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
+            overridePendingTransition(R.anim.slide_from_bottom,R.anim.slide_to_top);
+        }
+
+        // Confirm location pressing back
         onBackPressedDispatcher.addCallback(this ) {
             val resultIntent = Intent()
             resultIntent.putExtra("location", location)
             resultIntent.putExtra("endLocation", endLocation)
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
+            overridePendingTransition(R.anim.slide_from_bottom,R.anim.slide_to_top);
         }
     }
     override fun onMapReady(googleMap: GoogleMap) {
