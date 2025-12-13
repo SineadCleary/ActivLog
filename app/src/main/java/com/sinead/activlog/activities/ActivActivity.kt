@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.sinead.activlog.R
@@ -38,6 +39,21 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         app = application as MainApp
         i("Log activity started..")
         registerMapCallback()
+
+        // Delete dialog
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder
+            .setTitle("Are you sure you want to delete this activity?")
+            .setPositiveButton("DELETE") { dialog, which ->
+                // delete
+                app.activs.delete(activ)
+                setResult(RESULT_OK)
+                finish()
+            }
+            .setNegativeButton("CANCEL") { dialog, which ->
+                // Do nothing
+            }
+        val deleteDialog: AlertDialog = builder.create()
 
         // Type Spinner
         // code based on https://developer.android.com/develop/ui/views/components/spinner#SelectListener
@@ -122,9 +138,7 @@ class ActivActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         // Delete activity button
         binding.btnDelete.setOnClickListener {
-            app.activs.delete(activ)
-            setResult(RESULT_OK)
-            finish()
+            deleteDialog.show()
         }
     }
 
