@@ -107,7 +107,7 @@ class ActivMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
         contentBinding.currentType.text = activ!!.type
         contentBinding.currentRPE.text = "RPE: " + activ.RPE
         contentBinding.currentTime.text = activ.time.toString() + " minutes"
-        contentBinding.currentNote.text = activ.note
+        contentBinding.currentDistance.text = "Distance: " + String.format("%.1f", activ.distance) + "km"
 
         return false
     }
