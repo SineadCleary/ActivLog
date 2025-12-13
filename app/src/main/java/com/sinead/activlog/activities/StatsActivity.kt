@@ -3,6 +3,7 @@ package com.sinead.activlog.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.sinead.activlog.R
 import com.sinead.activlog.databinding.ActivityStatsBinding
@@ -49,6 +50,26 @@ class StatsActivity: AppCompatActivity() {
         binding.totalDistance.text = "Total distance: " + String.format("%.1f", totalDist) + "km"
         binding.AvgRPE.text = "Average RPE score: " + String.format("%.1f", avgRPE)
         binding.AvgTime.text = "Average exercise time: " + avgTime.roundToInt() + " minutes"
+
+        // Delete dialog
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder
+            .setTitle("Are you sure you want to delete all activities?")
+            .setPositiveButton("DELETE ALL") { dialog, which ->
+                app.activs.deleteAll()
+                setResult(RESULT_OK)
+                finish()
+                overridePendingTransition(R.anim.slide_from_bottom,R.anim.slide_to_top);
+            }
+            .setNegativeButton("CANCEL") { dialog, which ->
+                // Do nothing
+            }
+        val deleteDialog: AlertDialog = builder.create()
+
+        // Delete all activities button
+        binding.btnDelete.setOnClickListener {
+            deleteDialog.show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

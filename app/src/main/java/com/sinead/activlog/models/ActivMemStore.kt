@@ -48,6 +48,10 @@ class ActivMemStore : ActivStore {
         activs.remove(activ)
     }
 
+    override fun deleteAll() {
+        activs.clear()
+    }
+
     fun logAll() {
         activs.forEach { i("$it") }
     }

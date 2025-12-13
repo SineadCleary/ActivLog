@@ -6,6 +6,7 @@ interface ActivStore {
     fun findOne(id: Long) : ActivModel?
     fun update(activ: ActivModel)
     fun delete(avtiv: ActivModel)
+    fun deleteAll()
     fun findById(id:Long) : ActivModel?
 
 }
